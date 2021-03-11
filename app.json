@@ -1,0 +1,24 @@
+import MyMazda from "node-mymazda";
+
+async function test() {
+    // Initialize API Client (MNAO = North America)
+    let client = new MyMazda("myemail", "mypassword", "MNAO");
+
+    // Get list of vehicles from the API (returns a list)
+    let vehicles = await client.getVehicles();
+
+    // Loop through the registered vehicles
+    for (let vehicle of vehicles) {
+        // Get vehicle ID (you will need this in order to perform any other actions with the vehicle)
+        let vehicleId = vehicle.id;
+
+        // Get and output vehicle status
+        let status = await client.getVehicleStatus(vehicleId);
+        console.log(status);
+
+        // Start engine
+        await client.startEngine(vehicleId);
+    }
+}
+
+test();
